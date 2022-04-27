@@ -1,0 +1,30 @@
+---
+- name: This play will install apache
+  hosts: ansible-c-1
+  tasks:
+    - name: Install Apache and restart if present
+      yum:
+        name: httpd
+        state: latest
+      notify: restart_httpd
+
+    - name: Start the service
+      systemd: 
+        state: started
+        name: httpd
+        enabled: true
+
+    - name: Hostname
+      command: echo $HOSTNAME >> index.html
+
+    - name: Add the hostname to /var/www/html/index.html
+      copy:
+        src: index.html
+        dest: /var/www/html/index.html
+
+  handlers:
+    - name: restart_httpd
+      systemd:
+        name: httpd
+        state: restarted
+... 

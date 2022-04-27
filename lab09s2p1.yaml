@@ -1,0 +1,9 @@
+---
+- name: This playbook installs packages
+  hosts: ansible-c-1
+  tasks:
+    - name: Installing both bind and evolution packages
+      yum:
+        name: "{{ packages }}"
+        state: latest
+... 

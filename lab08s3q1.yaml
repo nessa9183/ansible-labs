@@ -1,0 +1,9 @@
+---
+- name: This is a playbook with 1 play and 1 task
+  hosts: linux
+  tasks:
+  - name: A package called nfs-utils is installed on linux hosts
+    dnf:
+      name: nfs-utils
+      state: present
+...

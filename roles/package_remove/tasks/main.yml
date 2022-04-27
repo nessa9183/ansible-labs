@@ -1,0 +1,8 @@
+---
+# tasks file for package_remove
+- name: remove the packages
+  yum:
+    name: "{{remove_these}}"
+    state: absent
+    update_cache: yes
+  when: ansible_distribution=="CentOS" or ansible_distribution=="RedHat"

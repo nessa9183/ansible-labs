@@ -1,0 +1,46 @@
+---
+- name: This play will manage files and folders
+  hosts: ansible-c-1
+  tasks:
+    - name: Creating locfile
+      file:
+        path: /home/locfile
+        state: touch
+        mode: 0644
+        owner: root
+        group: root
+
+    - name: set unmask to 0077
+      copy:
+        src: /home/locfile
+        dest: /tmp
+        mode: 0444
+        owner: root
+        group: root
+        remote_src: true
+
+    - name: setup SELinux 
+      file:
+        path: /tmp/locfile
+        setype: etc_t
+
+    - name: check the file status
+      stat:
+        path: /tmp/locfile
+      register: stat_output
+
+    - name: display the status
+      debug:
+        var: stat_output
+
+- name: Create an empty file
+  hosts: linux
+  tasks:
+    - name: create the files on the managed nodes
+      file:
+        path: /home/emptyfile
+        state: touch
+        mode: 0644
+        owner: root
+        group: root
+... 

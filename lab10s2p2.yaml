@@ -1,0 +1,11 @@
+---
+- name: This play uses ansible_mounts to install packages
+  hosts: ansible-c-2
+  tasks: 
+    - name: Installs the defined packages
+      yum:
+        name: "{{ packages }}"
+        state: present
+      loop: "{{ ansible_mounts }}"
+      when: item.mount == "/" and item.size_available > 2000000
+...

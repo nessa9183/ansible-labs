@@ -1,0 +1,14 @@
+---
+- name: This playbook will gather and show facts
+  hosts: ansible-w-vm1-dns
+  gather_facts: true
+  tasks:
+    - name: Display the node facts
+      debug:
+        var: ansible_facts
+    
+    - name: Display the fqdn, ipv4 addresses and short hostnames
+      debug:
+        msg: > 
+          The FQDN is {{ ansible_facts['fqdn'] }} with an IP address of {{ ansible_facts['ip_addresses'] }} and has a short hostname known as {{ ansible_facts['hostname'] }}
+...

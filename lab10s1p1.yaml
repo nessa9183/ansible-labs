@@ -1,0 +1,13 @@
+---
+- name: This play will install software if defined
+  hosts: ansible-c-1
+  vars:
+    packages: nmap
+    
+  tasks: 
+    - name: Install "{{ packages }}" software
+      yum:
+        name: "{{ packages }}"
+        state: absent
+      when: packages is defined
+...

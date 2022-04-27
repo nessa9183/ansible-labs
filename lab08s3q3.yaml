@@ -1,0 +1,15 @@
+---
+- name: This is a playbook with 1 play and 2 tasks
+  hosts: linux
+  tasks:
+  - name: Installing apache and nmap softwares
+    dnf:
+      name:
+      - httpd
+      - nmap
+  - name: Starting the apache service and setting it to auto-start on reboot
+    systemd:
+      name: httpd
+      state: started
+      enabled: yes
+...

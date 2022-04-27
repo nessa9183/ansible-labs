@@ -1,0 +1,9 @@
+---
+# tasks file for patching
+- name: This role is called patching
+  yum:
+    name: "*"
+    state: latest
+    update_cache: yes
+  when: ansible_distribution=="CentOS" or ansible_distribution=="RedHat"
+  notify: reboot_handler

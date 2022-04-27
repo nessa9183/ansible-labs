@@ -1,0 +1,25 @@
+---
+# tasks file for syslog_updates
+- name: Add a block to rsyslog.conf file
+  blockinfile:
+    path: "{{syslog_conf_path}}"
+    insertafter: EOF
+    backup: yes
+    state: present
+    block: |
+      $FileCreateMode: 0640
+
+- name: set permissions and ownership om rsyslog.d directory
+  file:
+    path: "{{syslog_d_path}}"
+    mode: 0640
+    owner: root
+    group: root
+    recurse: yes
+
+- name: Set permissions on the /var/log directory to 0775
+  file:
+    path: "{{log_path}}"
+    mode: 0775
+  notify: syslog_restart    
+

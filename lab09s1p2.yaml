@@ -1,0 +1,32 @@
+---
+- name: This play will create groups
+  hosts: ansible-c-1
+  vars_files:
+    - vars/userinfo
+  tasks:
+    - name: Create grouplist1
+      group:
+        name: "{{ grouplist1 }}"
+        state: present
+
+    - name: Create grouplist2
+      group:
+        name: "{{ grouplist2 }}"
+        state: present
+
+    - name: Create userlist1
+      user:
+        name: "{{ userlist1 }}"
+        groups: "{{ grouplist1 }}"
+        append: 1
+        uid: 1800
+
+    - name: Create userlist2
+      user:
+        name: "{{ userlist2 }}"
+        groups: "{{ grouplist2 }}"
+        append: 1
+        uid: 1900
+        shell: /bin/bash
+        home: /home/"{{ userlist2 }}"
+... 

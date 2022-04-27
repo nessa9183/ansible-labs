@@ -1,0 +1,8 @@
+---
+# tasks file for package_install
+- name: install the packages
+  yum:
+    name: "{{install_these}}"
+    state: latest
+    update_cache: yes
+  when: ansible_distribution=="CentOS" or ansible_distribution=="RedHat"

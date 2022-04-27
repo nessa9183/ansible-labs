@@ -1,0 +1,12 @@
+---
+- name: This playbook is for the roles to install, remove and patch the applications
+  hosts: linux
+  roles:
+    - package_remove
+    - package_install
+    - patching
+    - profile_mgmt
+    - timezone
+    - syslog_updates
+   
+    

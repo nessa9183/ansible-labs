@@ -1,0 +1,7 @@
+---
+# vars file for package_install
+install_these:
+  - cifs-utils
+  - nfs-utils
+  - audit
+  - chrony

@@ -1,0 +1,14 @@
+
+---
+- name: playbook to add the string This is my CentOS VM to the /tmp/conditional
+  hosts: linux
+  tasks:
+    - name: Ansible insert lines
+      blockinfile:
+        create: yes
+        dest: /tmp/conditional
+        backup: yes
+        state: present
+        block : |
+          "This is my CentOS VM"
+      when: ansible_distribution_version == "8.2" and ansible_kernel == "4.18.0-193.28.1.el8_2.x86_64"

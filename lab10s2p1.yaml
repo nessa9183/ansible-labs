@@ -1,0 +1,11 @@
+---
+- name: This play creates users using loop
+  hosts: linux
+  tasks: 
+    - name: Add the required user accounts
+      user:
+        name: "{{ item.username }}"
+        uid: "{{ item.userid }}"
+        state: present
+      loop: "{{ userinfo }}"
+...

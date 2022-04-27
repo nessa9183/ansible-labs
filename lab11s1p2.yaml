@@ -1,0 +1,27 @@
+---
+- name: This play will use multiple handlers
+  hosts: ansible-c-2
+  tasks:
+    - name: Install apache and mariadb-server
+      yum:
+        name: httpd, mariadb-server
+        state: latest
+      notify: 
+        - restart_httpd
+        - restart_mariadb
+    
+  handlers:
+    - name: restart_httpd
+      systemd:
+        name: httpd
+        state: restarted
+    - name: restart_mariadb
+      systemd: 
+        name: mariadb
+        state: restarted
+        enabled: true
+    - name: Start both services
+      shell:
+        systemctl status httpd
+        systemctl status mariadb
+... 

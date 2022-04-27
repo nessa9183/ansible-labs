@@ -1,0 +1,33 @@
+---
+- name: This play will help handle task failures
+  hosts: linux
+  tasks:
+    - name: make changes to /etc/profile file
+      block:
+      - name: Add an ssh session timeout
+        blockinfile:
+          path: /etc/profile
+          insertafter: EOF
+          backup: yes
+          state: present
+          block: |
+            export TMOUT=900
+      - name: set unmask to 0077
+        lineinfile:
+          path: /etc/profile
+          regex: "^umaask"
+          line: "umask 0077"
+          state: present
+      rescue:
+      - name: run the task below if either of the above fails
+        lineinfile:
+          path: ~/.bash_profile
+          regex: "^umaask"
+          line: "umask 0066"
+          state: present      
+      always:
+      - name: this tasks will run always
+        debug:
+          msg: Playbook execution completed
+
+... 
